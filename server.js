@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://minidrive-frontend.vercel.app"
+  "https://minidrive-frontend-steel.vercel.app"
 ];
 
 app.use(
