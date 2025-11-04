@@ -1,4 +1,3 @@
-
 import { v2 as cloudinary } from "cloudinary";
 import File from "../models/File.js";
 
@@ -6,29 +5,20 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
-
-
-
 export const uploadFile = async (req, res) => {
-
-
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-
 
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "mini-drive",
       resource_type: "auto",
     });
-
 
     const newFile = new File({
       filename: req.file.originalname,
@@ -36,13 +26,10 @@ export const uploadFile = async (req, res) => {
       url: uploadResult.secure_url,
     });
 
-
     await newFile.save();
 
     res.json(newFile);
-
   } catch (error) {
-
     console.error("Error uploading file:", error);
     res.status(500).json({ message: "Error uploading file" });
   }
